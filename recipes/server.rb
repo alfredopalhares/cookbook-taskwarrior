@@ -37,3 +37,9 @@ directory node["taskwarrior"]["server"]["home"] do
   group "taskd"
   mode 00644
 end
+
+directory node["taskwarrior"]["server"]["data_dir"] do
+  owner "taskd"
+  group "taskd"
+  mode 00644
+end
