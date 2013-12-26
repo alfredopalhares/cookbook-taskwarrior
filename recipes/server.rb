@@ -31,3 +31,9 @@ user "taskd" do
   home node["taskwarrior"]["server"]["home"]
   system true
 end
+
+directory node["taskwarrior"]["server"]["home"] do
+  owner "taskd"
+  group "taskd"
+  mode 00644
+end
