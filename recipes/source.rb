@@ -1,5 +1,5 @@
 git "#{Chef::Config[:file_cache_path]}/task.git" do
-  repository "git://tasktools.org/task.git"
-  reference "HEAD"
+  repository node["taskwarrior"]["source"]["git_repository"]
+  reference node["taskwarrior"]["source"]["git_revision"]
   action :sync
 end
