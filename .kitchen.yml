@@ -15,10 +15,6 @@ suites:
     attributes:
   - name: source
     run_list:
-      - recipe[apt::default]
-      - recipe[git::default]
-      - recipe[build-essential::default]
-      - recipe[cmake::default]
       - recipe[taskwarrior::default]
     attributes:
       taskwarrior:
