@@ -2,6 +2,7 @@ git "#{Chef::Config[:file_cache_path]}/task.git" do
   repository node["taskwarrior"]["source"]["git_repository"]
   reference node["taskwarrior"]["source"]["git_revision"]
   action :sync
+  notifies :run, "bash[Install taskwarrior]"
 end
 
 bash "Install taskwarrior" do
@@ -12,4 +13,5 @@ bash "Install taskwarrior" do
   make
   make install
   EOH
+  action :nothing
 end
