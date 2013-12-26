@@ -5,3 +5,4 @@ default["taskwarrior"]["source"]["git_revision"] = "HEAD"
 
 default["taskwarrior"]["server"]["git_repository"] = "git://tasktools.org/taskd.git"
 default["taskwarrior"]["server"]["git_revision"] = "HEAD"
+default["taskwarrior"]["server"]["home"] = "/var/lib/taskd"

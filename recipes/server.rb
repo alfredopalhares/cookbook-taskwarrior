@@ -26,3 +26,8 @@ bash "Install taskd" do
   EOH
   action :nothing
 end
+
+user "taskd" do
+  home node["taskwarrior"]["server"]["data_dir"]
+  system true
+end
