@@ -19,3 +19,7 @@ suites:
     attributes:
       taskwarrior:
         install_method: source
+  - name: server
+    run_list:
+      - recipe[taskwarrior::server]
+    attributes:
