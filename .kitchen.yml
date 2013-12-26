@@ -11,5 +11,6 @@ platforms:
 suites:
   - name: default
     run_list:
+      - recipe[apt::default]
       - recipe[taskwarrior::default]
     attributes:
