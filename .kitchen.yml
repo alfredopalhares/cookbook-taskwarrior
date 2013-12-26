@@ -9,8 +9,18 @@ platforms:
   - name: ubuntu-12.04
 
 suites:
-  - name: default
+  - name: package
     run_list:
       - recipe[apt::default]
       - recipe[taskwarrior::default]
     attributes:
+  - name: source
+    run_list:
+      - recipe[apt::default]
+      - recipe[git::default]
+      - recipe[build-essential::default]
+      - recipe[cmake::default]
+      - recipe[taskwarrior::default]
+    attributes:
+      taskwarrior:
+        install_method: source
