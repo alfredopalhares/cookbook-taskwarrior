@@ -1,5 +1,1 @@
-#
-# Cookbook Name:: taskwarrior
-# Recipe:: default
-
-package "task"
+include_recipe "taskwarrior::#{node["taskwarrior"]["install_method"]}"
