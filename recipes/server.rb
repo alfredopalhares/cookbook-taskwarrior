@@ -13,7 +13,7 @@ git "#{Chef::Config[:file_cache_path]}/taskd.git" do
   repository node["taskwarrior"]["server"]["git_repository"]
   reference node["taskwarrior"]["server"]["git_revision"]
   action :sync
-  notifies :run, "bash[Install taskd]"
+  notifies :run, "bash[Install taskd]", :immediately
 end
 
 bash "Install taskd" do
