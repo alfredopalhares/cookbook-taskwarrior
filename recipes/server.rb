@@ -37,10 +37,12 @@ directory node["taskwarrior"]["server"]["home"] do
   owner "taskd"
   group "taskd"
   mode 00644
+  recursive true
 end
 
 directory node["taskwarrior"]["server"]["data_dir"] do
   owner "taskd"
   group "taskd"
   mode 00644
+  recursive true
 end
