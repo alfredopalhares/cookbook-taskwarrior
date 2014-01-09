@@ -46,3 +46,21 @@ directory node["taskwarrior"]["server"]["data_dir"] do
   mode 00644
   recursive true
 end
+
+template "#{node["taskwarrior"]["server"]["data_dir"]}/config" do
+  source "taskd.config.erb"
+  owner "taskd"
+  group "taskd"
+  mode 00644
+  variables({
+    :confirmation => node["taskwarrior"]["server"]["confirmation"],
+    :extensions => node["taskwarrior"]["server"]["extensions"],
+    :ip_log => node["taskwarrior"]["server"]["ip_log"],
+    :log => node["taskwarrior"]["server"]["log"],
+    :pid_file => node["taskwarrior"]["server"]["pid_file"],
+    :queue_size=> node["taskwarrior"]["server"]["queue_size"],
+    :request_limit=> node["taskwarrior"]["server"]["request_limit"],
+    :root => node["taskwarrior"]["server"]["data_dir"],
+    :server => node["taskwarrior"]["server"]["link"]
+  })
+end
