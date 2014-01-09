@@ -1,9 +1,9 @@
+include_recipe "apt"
 include_recipe "git"
 include_recipe "build-essential"
 include_recipe "cmake"
 include_recipe "perl"
 include_recipe "python"
-include_recipe "apt"
 
 %w{ libgnutls-dev libreadline6 uuid-dev }.each do |pkg|
   package pkg
