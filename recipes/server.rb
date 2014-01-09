@@ -28,8 +28,9 @@ bash "Install taskd" do
 end
 
 user "taskd" do
-  home node["taskwarrior"]["server"]["home"]
   system true
+  home node["taskwarrior"]["server"]["home"]
+  shell "/bin/false"
 end
 
 directory node["taskwarrior"]["server"]["home"] do
