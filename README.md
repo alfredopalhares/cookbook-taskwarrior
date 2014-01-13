@@ -5,11 +5,17 @@ Installs and configures taskwarrior client and server software.
 
 Requirements
 ------------
-TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
+All the requirements are installed for you if you use [Berkshelf](http://berkshelf.com/). Altough it is
+good practice to add the following to the role run list.
 
-e.g.
-#### packages
-- `toaster` - taskwarrior needs toaster to brown your bagel.
+#### cookbooks
+- `apt` - To install the lastest packages.
+- `git` - To clone the code both for client and server source installs.
+- `cmake` - Build dependency for task and taskserver.
+- `build-essential` - Build dependency for task and taskserver.
+- `perl` - Build dependency for taskserver.
+- `python` - Build dependency for taskserver.
+- `runit` - To manage the taskserver daemon.
 
 Attributes
 ----------
