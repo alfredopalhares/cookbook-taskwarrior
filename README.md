@@ -56,6 +56,78 @@ Attributes
     <th>Description</th>
     <th>Default</th>
   </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["server"]["git_repository"]</tt></td>
+    <td>String</td>
+    <td>The git repository to clone taskserver from.</td>
+    <td><tt>git://tasktools.org/taskd.git</tt></td>
+  </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["server"]["git_revision"]</tt></td>
+    <td>String</td>
+    <td>The git revision to build from, HEAD is lastest</td>
+    <td><tt>HEAD</tt></td>
+  </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["server"]["home"]</tt></td>
+    <td>String</td>
+    <td>The main directory for taskd</td>
+    <td><tt>/var/lib/taskd</tt></td>
+  </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["server"]["data_dir"]</tt></td>
+    <td>String</td>
+    <td>Taskd data directory</td>
+    <td><tt>default["taskwarrior"]["server"]["home"]}/data</tt></td>
+  </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["server"]["confirmation"]</tt></td>
+    <td>String</td>
+    <td>Determines whether certain commands are confirmed</td>
+    <td><tt>on</tt></td>
+  </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["server"]["extensions"]</tt></td>
+    <td>String</td>
+    <td>Fully qualified path of the taskd extension scripts. Currently there are none.</td>
+    <td><tt></tt></td>
+  </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["server"]["ip_log"]</tt></td>
+    <td>String</td>
+    <td>Logs the IP addresses of incoming requests.</td>
+    <td><tt>on</tt></td>
+  </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["server"]["log"]</tt></td>
+    <td>String</td>
+    <td>Logs the IP addresses of incoming requests.</td>
+    <td><tt>/var/log/taskd.log</tt></td>
+  </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["server"]["queue_size"]</tt></td>
+    <td>Integer</td>
+    <td>Size of the connection backlog.</td>
+    <td><tt>10</tt></td>
+  </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["server"]["request_limit"]</tt></td>
+    <td>Integer</td>
+    <td>Size limit of incoming requests, in bytes.</td>
+    <td><tt>1048576</tt></td>
+  </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["server"]["link"]</tt></td>
+    <td>String</td>
+    <td>The address of the taskd serverm followed by a colon and the por number.</td>
+    <td><tt>localhost:6544</tt></td>
+  </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["server"]["initialized"]</tt></td>
+    <td>Boolean</td>
+    <td>Used by the recipe to run the database creation only at first run. *Do not override*</td>
+    <td><tt>false</tt></td>
+  </tr>
 </table>
 
 Usage
