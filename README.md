@@ -132,11 +132,11 @@ Attributes
 
 Usage
 -----
-#### taskwarrior::default
-TODO: Write usage instructions for each cookbook.
 
-e.g.
-Just include `taskwarrior` in your node's `run_list`:
+#### taskwarrior::default
+
+Installs the taskwarrior client that can work standalone, just add it to your run_list. You can choose to install from the repositories,
+or to build from source. Just set the ["taskwarrior"]["install_method"] to "source", like so.
 
 ```json
 {
@@ -144,6 +144,11 @@ Just include `taskwarrior` in your node's `run_list`:
   "run_list": [
     "recipe[taskwarrior]"
   ]
+  "override_attrubutes": {
+    "taskwarrior": {
+      "install_method": "source"
+    }
+  }
 }
 ```
 
