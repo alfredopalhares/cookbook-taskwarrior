@@ -40,6 +40,12 @@ Attributes
     <td>The git repository to clone taskwarrior from.</td>
     <td><tt>git://tasktools.org/task.git</tt></td>
   </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["source"]["git_revision"]</tt></td>
+    <td>String</td>
+    <td>The git revision to build from, HEAD is lastest</td>
+    <td><tt>HEAD</tt></td>
+  </tr>
 </table>
 
 Usage
