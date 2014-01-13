@@ -34,6 +34,12 @@ Attributes
     <td>Choose to install from the repository of from the lastest on the git repository</td>
     <td><tt>package</tt></td>
   </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["source"]["git_repository"]</tt></td>
+    <td>String</td>
+    <td>The git repository to clone taskwarrior from.</td>
+    <td><tt>git://tasktools.org/task.git</tt></td>
+  </tr>
 </table>
 
 Usage
