@@ -4,6 +4,7 @@ include_recipe "build-essential"
 include_recipe "cmake"
 include_recipe "perl"
 include_recipe "python"
+include_recipe "runit"
 
 %w{ libgnutls-dev libreadline6 uuid-dev }.each do |pkg|
   package pkg
@@ -25,6 +26,7 @@ bash "Install taskd" do
   make install
   EOH
   action :nothing
+  notifies :restart, "runit_service[taskd]", :delayed
 end
 
 user "taskd" do
@@ -63,6 +65,7 @@ template "#{node["taskwarrior"]["server"]["data_dir"]}/config" do
     :root => node["taskwarrior"]["server"]["data_dir"],
     :server => node["taskwarrior"]["server"]["link"]
   })
+  notifies :restart, "runit_service[taskd]", :delayed
 end
 
 if node["taskwarrior"]["server"]["initialized"]  == false then
@@ -77,3 +80,10 @@ if node["taskwarrior"]["server"]["initialized"]  == false then
   node.set["taskwarrior"]["server"]["initialized"] == true
 end
 
+runit_service "taskd" do
+  options({
+    :user => "taskd",
+    :data_dir => node["taskwarrior"]["server"]["data_dir"]
+  })
+  default_logger true
+end
