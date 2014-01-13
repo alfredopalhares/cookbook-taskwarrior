@@ -19,9 +19,7 @@ good practice to add the following to the role run list.
 
 Attributes
 ----------
-TODO: List you cookbook attributes here.
 
-e.g.
 #### taskwarrior::default
 <table>
   <tr>
@@ -31,10 +29,10 @@ e.g.
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['taskwarrior']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
+    <td><tt>['taskwarrior']['method']</tt></td>
+    <td>String</td>
+    <td>Choose to install from the repository of from the lastest on the git repository</td>
+    <td><tt>package</tt></td>
   </tr>
 </table>
 
