@@ -1,9 +1,7 @@
 taskwarrior Cookbook
 ====================
-TODO: Enter the cookbook description here.
 
-e.g.
-This cookbook makes your favorite breakfast sandwich.
+Installs and configures taskwarrior client and server software.
 
 Requirements
 ------------
