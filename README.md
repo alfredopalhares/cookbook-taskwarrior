@@ -174,4 +174,4 @@ The testing is done mostly with [test-kitchen](http://kitchen.ci/) before everyt
 License and Authors
 -------------------
 Authors:
- - Alfredo Palhares (masterkorp@masterkorp.net)
+ - Alfredo Palhares (masterkorp@masterkorp.net) and masterkorp on irc.freenode.org
