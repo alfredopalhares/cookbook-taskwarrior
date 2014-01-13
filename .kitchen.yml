@@ -8,7 +8,7 @@ provisioner:
   name: chef_zero
 
 platforms:
-  - name: ubuntu-12.04
+  - name: ubuntu-13.10
 
 suites:
   - name: package
