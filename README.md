@@ -152,6 +152,12 @@ or to build from source. Just set the ["taskwarrior"]["install_method"] to "sour
 }
 ```
 
+#### taskwarrior::server
+
+Builds and installs the taskwarrior service daemon (taskd) and sets up supervising with runit. You need to create and set up the
+server and client keys for it for the time being.
+Check the taskwarrior wiki pages for [operation](http://taskwarrior.org/projects/taskwarrior/wiki/Taskserver_Operation), [setup](http://taskwarrior.org/projects/taskwarrior/wiki/Server_setup) amd [ciphers](http://taskwarrior.org/projects/taskwarrior/wiki/Ciphers)
+
 Contributing
 ------------
 
