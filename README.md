@@ -48,6 +48,16 @@ Attributes
   </tr>
 </table>
 
+#### taskwarrior::server
+<table>
+  <tr>
+    <th>Key</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>Default</th>
+  </tr>
+</table>
+
 Usage
 -----
 #### taskwarrior::default
