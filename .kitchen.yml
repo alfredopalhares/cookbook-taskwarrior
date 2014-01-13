@@ -1,12 +1,14 @@
 ---
 driver:
   name: vagrant
+  driver_config:
+      require_chef_omnibus: true
 
 provisioner:
-  name: chef_solo
+  name: chef_zero
 
 platforms:
-  - name: ubuntu-12.04
+  - name: ubuntu-13.10
 
 suites:
   - name: package
@@ -19,3 +21,7 @@ suites:
     attributes:
       taskwarrior:
         install_method: source
+  - name: server
+    run_list:
+      - recipe[taskwarrior::server]
+    attributes:
