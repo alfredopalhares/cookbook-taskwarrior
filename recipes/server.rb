@@ -59,7 +59,6 @@ template "#{node["taskwarrior"]["server"]["data_dir"]}/config" do
     :extensions => node["taskwarrior"]["server"]["extensions"],
     :ip_log => node["taskwarrior"]["server"]["ip_log"],
     :log => node["taskwarrior"]["server"]["log"],
-    :pid_file => node["taskwarrior"]["server"]["pid_file"],
     :queue_size=> node["taskwarrior"]["server"]["queue_size"],
     :request_limit=> node["taskwarrior"]["server"]["request_limit"],
     :root => node["taskwarrior"]["server"]["data_dir"],
