@@ -119,7 +119,7 @@ Attributes
   <tr>
     <td><tt>["taskwarrior"]["server"]["link"]</tt></td>
     <td>String</td>
-    <td>The address of the taskd serverm followed by a colon and the por number.</td>
+    <td>The address of the taskd server followed by a colon and the por number.</td>
     <td><tt>localhost:6544</tt></td>
   </tr>
   <tr>
