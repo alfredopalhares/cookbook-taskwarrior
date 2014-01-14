@@ -79,6 +79,8 @@ if node["taskwarrior"]["server"]["initialized"]  == false then
   node.set["taskwarrior"]["server"]["initialized"] == true
 end
 
+package "gnutls-bin"
+
 runit_service "taskd" do
   options({
     :user => "taskd",
