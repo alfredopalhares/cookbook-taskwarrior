@@ -81,6 +81,15 @@ end
 
 package "gnutls-bin"
 
+bash "Generating CA" do
+  user "root"
+  cwd node["taskwarrior"]["server"]["home"]
+  code <<-EOH
+    certtool --generate-privkey --outfile ca.key.pem
+  EOH
+  not_if {::File.exists?("#{node["taskwarrior"]["server"]["home"]}/ca.key.pem")}
+end
+
 runit_service "taskd" do
   options({
     :user => "taskd",
