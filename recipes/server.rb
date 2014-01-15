@@ -96,7 +96,7 @@ template "#{node["taskwarrior"]["server"]["home"]}/ca.info" do
   group "root"
   mode 00600
   variables({
-    :organization => "Lol chef"
+    :organization => node["taskwarrior"]["server"]["organization"]
   })
   not_if {::File.exists?("#{node["taskwarrior"]["server"]["home"]}/ca.cert.pem")}
   notifies :run, "bash[Generating CA Cert]", :immediately
