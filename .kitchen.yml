@@ -25,3 +25,6 @@ suites:
     run_list:
       - recipe[taskwarrior::server]
     attributes:
+      taskwarrior:
+        server:
+          organization: Evil. Inc
