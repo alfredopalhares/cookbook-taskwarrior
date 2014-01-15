@@ -15,6 +15,5 @@ default["taskwarrior"]["server"]["log"] = "/var/log/taskd.log"
 default["taskwarrior"]["server"]["queue_size"] = 10
 default["taskwarrior"]["server"]["request_limit"] = 1048576
 default["taskwarrior"]["server"]["link"] = "localhost:6544"
-default["taskwarrior"]["server"]["organization"] = ""
 
 default["taskwarrior"]["server"]["initialized"] = false
