@@ -6,16 +6,22 @@ if not node["taskwarrior"]["server"].attribute?("organization")
   end
 end
 
+directory node["taskwarrior"]["server"]["keys_dir"] do
+  owner "taskd"
+  group "taskd"
+  mode 0600
+end
+
 bash "Generating CA key" do
   user "root"
-  cwd node["taskwarrior"]["server"]["home"]
+  cwd node["taskwarrior"]["server"]["keys_dir"]
   code <<-EOH
     certtool --generate-privkey --outfile ca.key.pem
   EOH
-  not_if {::File.exists?("#{node["taskwarrior"]["server"]["home"]}/ca.key.pem")}
+  not_if {::File.exists?("#{node["taskwarrior"]["server"]["keys_dir"]}/ca.key.pem")}
 end
 
-template "#{node["taskwarrior"]["server"]["home"]}/ca.info" do
+template "#{node["taskwarrior"]["server"]["keys_dir"]}/ca.info" do
   source "ca.info.erb"
   owner "root"
   group "root"
@@ -23,13 +29,13 @@ template "#{node["taskwarrior"]["server"]["home"]}/ca.info" do
   variables({
     :organization => node["taskwarrior"]["server"]["organization"]
   })
-  not_if {::File.exists?("#{node["taskwarrior"]["server"]["home"]}/ca.cert.pem")}
+  not_if {::File.exists?("#{node["taskwarrior"]["server"]["keys_dir"]}/ca.cert.pem")}
   notifies :run, "bash[Generating CA Cert]", :immediately
 end
 
 bash "Generating CA Cert" do
   user "root"
-  cwd node["taskwarrior"]["server"]["home"]
+  cwd node["taskwarrior"]["server"]["keys_dir"]
   code <<-EOH
     certtool --generate-self-signed \
     --load-privkey ca.key.pem \
@@ -43,14 +49,14 @@ end
 
 bash "Generating Server key" do
   user "root"
-  cwd node["taskwarrior"]["server"]["home"]
+  cwd node["taskwarrior"]["server"]["keys_dir"]
   code <<-EOH
     certtool --generate-privkey --outfile server.key.pem
   EOH
-  not_if {::File.exists?("#{node["taskwarrior"]["server"]["home"]}/server.key.pem")}
+  not_if {::File.exists?("#{node["taskwarrior"]["server"]["keys_dir"]}/server.key.pem")}
 end
 
-template "#{node["taskwarrior"]["server"]["home"]}/server.info" do
+template "#{node["taskwarrior"]["server"]["keys_dir"]}/server.info" do
   source "server.info.erb"
   owner "root"
   group "root"
@@ -59,13 +65,13 @@ template "#{node["taskwarrior"]["server"]["home"]}/server.info" do
     :organization => node["taskwarrior"]["server"]["organization"],
     :cn => node["ipaddress"]
   })
-  not_if {::File.exists?("#{node["taskwarrior"]["server"]["home"]}/server.cert.pem")}
+  not_if {::File.exists?("#{node["taskwarrior"]["server"]["keys_dir"]}/server.cert.pem")}
   notifies :run, "bash[Generating Server Cert]", :immediately
 end
 
 bash "Generating Server Cert" do
   user "root"
-  cwd node["taskwarrior"]["server"]["home"]
+  cwd node["taskwarrior"]["server"]["keys_dir"]
   code <<-EOH
     certtool --generate-certificate \
     --load-privkey server.key.pem \

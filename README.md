@@ -81,6 +81,12 @@ Attributes
     <td><tt>default["taskwarrior"]["server"]["home"]}/data</tt></td>
   </tr>
   <tr>
+    <td><tt>["taskwarrior"]["server"]["keys_dir"]</tt></td>
+    <td>String</td>
+    <td>Fully qualified path for the keys</td>
+    <td><tt>default["taskwarrior"]["server"]["home"]}/keys</tt></td>
+  </tr>
+  <tr>
     <td><tt>["taskwarrior"]["server"]["confirmation"]</tt></td>
     <td>String</td>
     <td>Determines whether certain commands are confirmed</td>
