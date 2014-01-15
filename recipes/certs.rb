@@ -1,5 +1,11 @@
 package "gnutls-bin"
 
+if not node["taskwarrior"]["server"].attribute?("organization")
+  log "The organization attribute is not set, certificates can't be set." do
+    level :fatal
+  end
+end
+
 bash "Generating CA key" do
   user "root"
   cwd node["taskwarrior"]["server"]["home"]
