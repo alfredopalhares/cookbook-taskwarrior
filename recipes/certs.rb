@@ -36,6 +36,7 @@ bash "Generating CA Cert" do
     --template ca.info \
     --outfile ca.cert.pem
     rm ca.info
+    [ -s ca.cert.pem ]
   EOH
   action :nothing
 end
@@ -73,6 +74,9 @@ bash "Generating Server Cert" do
     --template server.info \
     --outfile server.cert.pem
     rm server.info
+    [ -s server.cert.pem ]
   EOH
   action :nothing
 end
+
+
