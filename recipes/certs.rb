@@ -85,4 +85,19 @@ bash "Generating Server Cert" do
   action :nothing
 end
 
+users = data_bag("users")
+
+users.each() do |s|
+  u = data_bag_item("users", s)
+
+  bash "Create Organization for the user" do
+    user "root"
+    cwd node["taskwarrior"]["server"]["home"]
+    code <<-EOH
+      taskd add org #{u["taskwarrior"]["organization"]} --data #{node["taskwarrior"]["server"]["data_dir"]}
+    EOH
+    not_if do ::File.directory?("#{node["taskwarrior"]["server"]["data_dir"]}/orgs/#{u["taskwarrior"]["organization"]}") end
+  end
+end
+
 
