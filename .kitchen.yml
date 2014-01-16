@@ -6,6 +6,7 @@ driver:
 
 provisioner:
   name: chef_zero
+  data_bags_path: ./test/data_bags
 
 platforms:
   - name: ubuntu-13.10
