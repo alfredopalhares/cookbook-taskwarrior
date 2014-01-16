@@ -1,0 +1,7 @@
+{
+  "id": "bob",
+  "taskwarrior": {
+    "organization": "Public",
+    "groups": ["groupA", "groupB"]
+  }
+}
