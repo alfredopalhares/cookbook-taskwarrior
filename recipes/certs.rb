@@ -98,6 +98,24 @@ users.each() do |s|
     EOH
     not_if do ::File.directory?("#{node["taskwarrior"]["server"]["data_dir"]}/orgs/#{u["taskwarrior"]["organization"]}") end
   end
+
+  directory "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}" do
+    owner "taskd"
+    group "taskd"
+    notifies :run, "bash[Create user]", :immediately
+  end
+
+  bash "Create user" do
+    user "root"
+    cwd "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}"
+    code <<-EOH
+      taskd add user #{u["taskwarrior"]["organization"]} #{u["id"]} \
+      --data #{node["taskwarrior"]["server"]["data_dir"]} \
+      2>&1 | tee #{u["id"]}.txt
+    EOH
+    action :nothing
+  end
+
 end
 
 
