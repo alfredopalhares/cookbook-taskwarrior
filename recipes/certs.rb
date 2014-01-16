@@ -102,16 +102,17 @@ users.each() do |s|
   directory "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}" do
     owner "taskd"
     group "taskd"
-    notifies :run, "bash[Create user]", :immediately
+    notifies :run, "bash[Create user and key]", :immediately
   end
 
-  bash "Create user" do
+  bash "Create user and key" do
     user "root"
     cwd "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}"
     code <<-EOH
       taskd add user #{u["taskwarrior"]["organization"]} #{u["id"]} \
       --data #{node["taskwarrior"]["server"]["data_dir"]} \
       2>&1 | tee #{u["id"]}.txt
+      certtool --generate-privkey --outfile #{u["id"]}.key.pem
     EOH
     action :nothing
   end
