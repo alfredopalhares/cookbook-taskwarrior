@@ -49,6 +49,20 @@ directory node["taskwarrior"]["server"]["data_dir"] do
   recursive true
 end
 
+if node["taskwarrior"]["server"]["initialized"]  == false then
+  bash "Initialize database" do
+    user "root"
+    cwd node["taskwarrior"]["server"]["home"]
+    code <<-EOH
+    taskd init --data #{node["taskwarrior"]["server"]["data_dir"]}
+    EOH
+  end
+
+  node.set["taskwarrior"]["server"]["initialized"] == true
+end
+
+include_recipe "taskwarrior::certs"
+
 template "#{node["taskwarrior"]["server"]["data_dir"]}/config" do
   source "taskd.config.erb"
   owner "taskd"
@@ -69,19 +83,6 @@ template "#{node["taskwarrior"]["server"]["data_dir"]}/config" do
   notifies :restart, "runit_service[taskd]", :delayed
 end
 
-if node["taskwarrior"]["server"]["initialized"]  == false then
-  bash "Initialize database" do
-    user "root"
-    cwd node["taskwarrior"]["server"]["home"]
-    code <<-EOH
-    taskd init --data #{node["taskwarrior"]["server"]["data_dir"]}
-    EOH
-  end
-
-  node.set["taskwarrior"]["server"]["initialized"] == true
-end
-
-include_recipe "taskwarrior::certs"
 
 runit_service "taskd" do
   options({
