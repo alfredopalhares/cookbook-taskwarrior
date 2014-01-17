@@ -62,7 +62,9 @@ template "#{node["taskwarrior"]["server"]["data_dir"]}/config" do
     :queue_size=> node["taskwarrior"]["server"]["queue_size"],
     :request_limit=> node["taskwarrior"]["server"]["request_limit"],
     :root => node["taskwarrior"]["server"]["data_dir"],
-    :server => node["taskwarrior"]["server"]["link"]
+    :server => node["taskwarrior"]["server"]["link"],
+    :server_cert => "#{node["taskwarrior"]["server"]["keys_dir"]}/server.cert.pem",
+    :server_key => "#{node["taskwarrior"]["server"]["keys_dir"]}/server.key.pem"
   })
   notifies :restart, "runit_service[taskd]", :delayed
 end
