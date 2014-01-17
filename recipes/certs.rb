@@ -117,6 +117,34 @@ users.each() do |s|
     action :nothing
   end
 
+  template "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}/client.info" do
+    source "client.info.erb"
+    owner "root"
+    group "root"
+    mode 00600
+    variables({
+      :organization => node["taskwarrior"]["server"]["organization"],
+      :cn => node["ipaddress"]
+    })
+    not_if {::File.exists?("#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}/#{u["id"]}.cert.pem")}
+    notifies :run, "bash[Generating User Cert]", :immediately
+  end
+
+  bash "Generating User Cert" do
+    user "root"
+    cwd "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}"
+    code <<-EOH
+      certtool --generate-certificate \
+      --load-privkey #{u["id"]}.key.pem \
+      --load-ca-certificate ../ca.cert.pem \
+      --load-ca-privkey ../ca.key.pem \
+      --template client.info \
+      --outfile #{u["id"]}.cert.pem
+      rm client.info
+      [ -s #{u["id"]}.cert.pem ]
+    EOH
+    action :nothing
+  end
 end
 
 
