@@ -85,6 +85,32 @@ bash "Generating Server Cert" do
   action :nothing
 end
 
+template "#{node["taskwarrior"]["server"]["keys_dir"]}/crl.info" do
+  source "crl.info.erb"
+  owner "root"
+  group "root"
+  mode 00600
+  variables({
+    :expiration_days => "365"
+  })
+  not_if {::File.exists?("#{node["taskwarrior"]["server"]["keys_dir"]}/server.crl.pem")}
+  notifies :run, "bash[Generating Server CRL]", :immediately
+end
+
+bash "Generating Server CRL" do
+  user "root"
+  cwd node["taskwarrior"]["server"]["keys_dir"]
+  code <<-EOH
+    certtool --generate-crl \
+    --load-ca-privkey ca.key.pem \
+    --load-ca-certificate ca.cert.pem \
+    --template crl.info \
+    --outfile server.crl.pem
+    rm crl.info
+    [ -s server.crl.pem ]
+  EOH
+  action :nothing
+end
 users = data_bag("users")
 
 users.each() do |s|
