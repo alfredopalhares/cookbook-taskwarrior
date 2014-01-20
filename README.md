@@ -81,6 +81,12 @@ Attributes
     <td><tt>default["taskwarrior"]["server"]["home"]}/data</tt></td>
   </tr>
   <tr>
+    <td><tt>["taskwarrior"]["server"]["keys_dir"]</tt></td>
+    <td>String</td>
+    <td>Fully qualified path for the keys</td>
+    <td><tt>default["taskwarrior"]["server"]["home"]}/keys</tt></td>
+  </tr>
+  <tr>
     <td><tt>["taskwarrior"]["server"]["confirmation"]</tt></td>
     <td>String</td>
     <td>Determines whether certain commands are confirmed</td>
@@ -128,6 +134,12 @@ Attributes
     <td>Used by the recipe to run the database creation only at first run. *Do not override*</td>
     <td><tt>false</tt></td>
   </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["server"]["organization"]</tt></td>
+    <td>String</td>
+    <td>The name of your organization to generate the certificates.</td>
+    <td><tt>Empty</tt></td>
+  </tr>
 </table>
 
 Usage
@@ -157,6 +169,19 @@ or to build from source. Just set the ["taskwarrior"]["install_method"] to "sour
 Builds and installs the taskwarrior service daemon (taskd) and sets up supervising with runit. You need to create and set up the
 server and client keys for it for the time being.
 Check the taskwarrior wiki pages for [operation](http://taskwarrior.org/projects/taskwarrior/wiki/Taskserver_Operation), [setup](http://taskwarrior.org/projects/taskwarrior/wiki/Server_setup) amd [ciphers](http://taskwarrior.org/projects/taskwarrior/wiki/Ciphers)
+
+```json
+{
+  "id": "bob",
+  "taskwarrior": {
+    "organization": "Public",
+    "groups": ["groupA", "groupB"]
+  }
+}
+```
+
+This will generate client keys and the taskd user and its Uuid for bob. The key distrubution at the moment is done by hand so you
+need to get them from the key directory.
 
 Contributing
 ------------

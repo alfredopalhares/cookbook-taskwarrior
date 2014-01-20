@@ -7,6 +7,7 @@ default["taskwarrior"]["server"]["git_repository"] = "git://tasktools.org/taskd.
 default["taskwarrior"]["server"]["git_revision"] = "HEAD"
 default["taskwarrior"]["server"]["home"] = "/var/lib/taskd"
 default["taskwarrior"]["server"]["data_dir"] = "#{default["taskwarrior"]["server"]["home"]}/data"
+default["taskwarrior"]["server"]["keys_dir"] = "#{default["taskwarrior"]["server"]["home"]}/keys"
 
 default["taskwarrior"]["server"]["confirmation"] = "on"
 default["taskwarrior"]["server"]["extensions"] = ""

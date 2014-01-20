@@ -49,6 +49,20 @@ directory node["taskwarrior"]["server"]["data_dir"] do
   recursive true
 end
 
+if node["taskwarrior"]["server"]["initialized"]  == false then
+  bash "Initialize database" do
+    user "root"
+    cwd node["taskwarrior"]["server"]["home"]
+    code <<-EOH
+    taskd init --data #{node["taskwarrior"]["server"]["data_dir"]}
+    EOH
+  end
+
+  node.set["taskwarrior"]["server"]["initialized"] == true
+end
+
+include_recipe "taskwarrior::certs"
+
 template "#{node["taskwarrior"]["server"]["data_dir"]}/config" do
   source "taskd.config.erb"
   owner "taskd"
@@ -62,22 +76,14 @@ template "#{node["taskwarrior"]["server"]["data_dir"]}/config" do
     :queue_size=> node["taskwarrior"]["server"]["queue_size"],
     :request_limit=> node["taskwarrior"]["server"]["request_limit"],
     :root => node["taskwarrior"]["server"]["data_dir"],
-    :server => node["taskwarrior"]["server"]["link"]
+    :server => node["taskwarrior"]["server"]["link"],
+    :server_cert => "#{node["taskwarrior"]["server"]["keys_dir"]}/server.cert.pem",
+    :server_crl => "#{node["taskwarrior"]["server"]["keys_dir"]}/server.crl.pem",
+    :server_key => "#{node["taskwarrior"]["server"]["keys_dir"]}/server.key.pem"
   })
   notifies :restart, "runit_service[taskd]", :delayed
 end
 
-if node["taskwarrior"]["server"]["initialized"]  == false then
-  bash "Initialize database" do
-    user "root"
-    cwd node["taskwarrior"]["server"]["home"]
-    code <<-EOH
-    taskd init --data #{node["taskwarrior"]["server"]["data_dir"]}
-    EOH
-  end
-
-  node.set["taskwarrior"]["server"]["initialized"] == true
-end
 
 runit_service "taskd" do
   options({
