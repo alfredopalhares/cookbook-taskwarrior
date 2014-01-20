@@ -17,6 +17,10 @@ good practice to add the following to the role run list.
 - `python` - Build dependency for taskserver.
 - `runit` - To manage the taskserver daemon.
 
+#### Plaforms
+- Ubuntu
+- Debian
+
 Attributes
 ----------
 
