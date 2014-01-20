@@ -170,6 +170,19 @@ Builds and installs the taskwarrior service daemon (taskd) and sets up supervisi
 server and client keys for it for the time being.
 Check the taskwarrior wiki pages for [operation](http://taskwarrior.org/projects/taskwarrior/wiki/Taskserver_Operation), [setup](http://taskwarrior.org/projects/taskwarrior/wiki/Server_setup) amd [ciphers](http://taskwarrior.org/projects/taskwarrior/wiki/Ciphers)
 
+```json
+{
+  "id": "bob",
+  "taskwarrior": {
+    "organization": "Public",
+    "groups": ["groupA", "groupB"]
+  }
+}
+```
+
+This will generate client keys and the taskd user and its Uuid for bob. The key distrubution at the moment is done by hand so you
+need to get them from the key directory.
+
 Contributing
 ------------
 
