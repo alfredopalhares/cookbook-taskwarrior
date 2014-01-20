@@ -2,6 +2,8 @@ include_recipe "git"
 include_recipe "build-essential"
 include_recipe "cmake"
 
+package "uuid-dev"
+
 git "#{Chef::Config[:file_cache_path]}/task.git" do
   repository node["taskwarrior"]["source"]["git_repository"]
   reference node["taskwarrior"]["source"]["git_revision"]
