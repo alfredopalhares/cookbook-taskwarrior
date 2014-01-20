@@ -10,6 +10,7 @@ provisioner:
 
 platforms:
   - name: ubuntu-13.10
+  - name: debian-7.2.0
 
 suites:
   - name: package
