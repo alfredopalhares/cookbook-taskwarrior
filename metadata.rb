@@ -4,7 +4,7 @@ maintainer_email 'masterkorp@masterkorp.net'
 license          'MIT'
 description      'Installs/Configures taskwarrior'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '0.1.1'
+version          '1.1.1'
 depends          "apt"
 depends          "git"
 depends          "cmake"
