@@ -3,3 +3,4 @@
 *.swp
 Berksfile.lock
 Gemfile.lock
+metadata.json
