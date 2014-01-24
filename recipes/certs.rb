@@ -8,7 +8,7 @@ end
 directory node["taskwarrior"]["server"]["keys_dir"] do
   owner "taskd"
   group "taskd"
-  mode 0600
+  mode 0700
 end
 
 bash "Generating CA key" do
