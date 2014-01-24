@@ -7,3 +7,4 @@ gem "emeril"
 gem "test-kitchen", ">=1"
 gem "foodcritic", ">=3"
 gem 'kitchen-vagrant'
+gem "berkshelf"
