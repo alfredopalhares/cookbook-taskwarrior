@@ -146,7 +146,7 @@ users.each() do |s|
     source "client.info.erb"
     owner "root"
     group "root"
-    mode 00600
+    mode 00700
     variables({
       :organization => node["taskwarrior"]["server"]["organization"],
       :cn => node["ipaddress"]
