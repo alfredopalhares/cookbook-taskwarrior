@@ -2,7 +2,7 @@ package "gnutls-bin"
 
 log "The organization attribute is not set, certificates can't be set." do
   level :fatal
-  only_if node["taskwarrior"]["server"].attribute?("organization")
+  only_if { node["taskwarrior"]["server"].attribute?("organization") }
 end
 
 directory node["taskwarrior"]["server"]["keys_dir"] do
