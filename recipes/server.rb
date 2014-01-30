@@ -51,7 +51,7 @@ end
 
 if node["taskwarrior"]["server"]["initialized"]  == false then
   bash "Initialize database" do
-    user "root"
+    user "taskd"
     cwd node["taskwarrior"]["server"]["home"]
     code <<-EOH
     taskd init --data #{node["taskwarrior"]["server"]["data_dir"]}
