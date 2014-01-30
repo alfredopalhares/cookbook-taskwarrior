@@ -32,7 +32,7 @@ end
 user "taskd" do
   system true
   home node["taskwarrior"]["server"]["home"]
-  shell "/bin/false"
+  shell "/bin/bash"
 end
 
 directory node["taskwarrior"]["server"]["home"] do
