@@ -12,7 +12,7 @@ directory node["taskwarrior"]["server"]["keys_dir"] do
 end
 
 bash "Generating CA key" do
-  user "root"
+  user "taskd"
   cwd node["taskwarrior"]["server"]["keys_dir"]
   code <<-EOH
     certtool --generate-privkey --outfile ca.key.pem
@@ -22,8 +22,8 @@ end
 
 template "#{node["taskwarrior"]["server"]["keys_dir"]}/ca.info" do
   source "ca.info.erb"
-  owner "root"
-  group "root"
+  owner "taskd"
+  group "taskd"
   mode 00600
   variables({
     :organization => node["taskwarrior"]["server"]["organization"]
@@ -33,7 +33,7 @@ template "#{node["taskwarrior"]["server"]["keys_dir"]}/ca.info" do
 end
 
 bash "Generating CA Cert" do
-  user "root"
+  user "taskd"
   cwd node["taskwarrior"]["server"]["keys_dir"]
   code <<-EOH
     certtool --generate-self-signed \
@@ -47,7 +47,7 @@ bash "Generating CA Cert" do
 end
 
 bash "Generating Server key" do
-  user "root"
+  user "taskd"
   cwd node["taskwarrior"]["server"]["keys_dir"]
   code <<-EOH
     certtool --generate-privkey --outfile server.key.pem
@@ -57,8 +57,8 @@ end
 
 template "#{node["taskwarrior"]["server"]["keys_dir"]}/server.info" do
   source "server.info.erb"
-  owner "root"
-  group "root"
+  owner "taskd"
+  group "taskd"
   mode 00600
   variables({
     :organization => node["taskwarrior"]["server"]["organization"],
@@ -69,7 +69,7 @@ template "#{node["taskwarrior"]["server"]["keys_dir"]}/server.info" do
 end
 
 bash "Generating Server Cert" do
-  user "root"
+  user "taskd"
   cwd node["taskwarrior"]["server"]["keys_dir"]
   code <<-EOH
     certtool --generate-certificate \
@@ -86,8 +86,8 @@ end
 
 template "#{node["taskwarrior"]["server"]["keys_dir"]}/crl.info" do
   source "crl.info.erb"
-  owner "root"
-  group "root"
+  owner "taskd"
+  group "taskd"
   mode 00600
   variables({
     :expiration_days => "365"
@@ -97,7 +97,7 @@ template "#{node["taskwarrior"]["server"]["keys_dir"]}/crl.info" do
 end
 
 bash "Generating Server CRL" do
-  user "root"
+  user "taskd"
   cwd node["taskwarrior"]["server"]["keys_dir"]
   code <<-EOH
     certtool --generate-crl \
@@ -116,7 +116,7 @@ users.each() do |s|
   u = data_bag_item("users", s)
 
   bash "Create Organization for the user" do
-    user "root"
+    user "taskd"
     cwd node["taskwarrior"]["server"]["home"]
     code <<-EOH
       taskd add org #{u["taskwarrior"]["organization"]} --data #{node["taskwarrior"]["server"]["data_dir"]}
@@ -131,7 +131,7 @@ users.each() do |s|
   end
 
   bash "Create user and key" do
-    user "root"
+    user "taskd"
     cwd "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}"
     code <<-EOH
       taskd add user #{u["taskwarrior"]["organization"]} #{u["id"]} \
@@ -144,9 +144,9 @@ users.each() do |s|
 
   template "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}/client.info" do
     source "client.info.erb"
-    owner "root"
-    group "root"
-    mode 00700
+    owner "taskd"
+    group "taskd"
+    mode 00600
     variables({
       :organization => node["taskwarrior"]["server"]["organization"],
       :cn => node["ipaddress"]
@@ -156,7 +156,7 @@ users.each() do |s|
   end
 
   bash "Generating User Cert" do
-    user "root"
+    user "taskd"
     cwd "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}"
     code <<-EOH
       certtool --generate-certificate \
