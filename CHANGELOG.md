@@ -1,6 +1,13 @@
 taskwarrior CHANGELOG
 =====================
 
+1.1.2
+-----
+- Fixed runit initial starts because of the log ([@masterkorp][])
+- Allow taskserver to write his own logs
+- Generate the certificates as non root
+- Run taskserver under its on user
+
 0.1.1
 -----
 - Initial release of taskwarrior ([@masterkorp][])
