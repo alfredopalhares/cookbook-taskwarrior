@@ -35,6 +35,11 @@ user "taskd" do
   shell "/bin/bash"
 end
 
+group "log" do
+  members "taskd"
+  append true
+end
+
 directory node["taskwarrior"]["server"]["home"] do
   owner "taskd"
   group "taskd"
@@ -55,7 +60,7 @@ bash "Initialize database" do
   code <<-EOH
   taskd init --data #{node["taskwarrior"]["server"]["data_dir"]}
   EOH
-  not_if { ::File.exists?(node["taskwarrior"]["server"]["data_dir"]) }
+  not_if { ::File.exists?("#{node["taskwarrior"]["server"]["data_dir"]}/org") }
 end
 
 include_recipe "taskwarrior::certs"
