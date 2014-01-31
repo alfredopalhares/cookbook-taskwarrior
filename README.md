@@ -109,10 +109,16 @@ Attributes
     <td><tt>on</tt></td>
   </tr>
   <tr>
-    <td><tt>["taskwarrior"]["server"]["log"]</tt></td>
+    <td><tt>["taskwarrior"]["server"]["log_dir"]</tt></td>
     <td>String</td>
-    <td>Logs the IP addresses of incoming requests.</td>
-    <td><tt>/var/log/taskd.log</tt></td>
+    <td>Log directory for taskd.</td>
+    <td><tt>/var/log/taskd</tt></td>
+  </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["server"]["log_file"]</tt></td>
+    <td>String</td>
+    <td>Main log file.</td>
+    <td><tt>default["taskwarrior"]["server"]["log_dir"]}/keys</tt></td>
   </tr>
   <tr>
     <td><tt>["taskwarrior"]["server"]["queue_size"]</tt></td>

@@ -54,6 +54,13 @@ directory node["taskwarrior"]["server"]["data_dir"] do
   recursive true
 end
 
+directory node["taskwarrior"]["server"]["log_dir"] do
+  owner "taskd"
+  group "taskd"
+  mode 00744
+  recursive true
+end
+
 bash "Initialize database" do
   user "taskd"
   cwd node["taskwarrior"]["server"]["home"]
@@ -74,7 +81,7 @@ template "#{node["taskwarrior"]["server"]["data_dir"]}/config" do
     :confirmation => node["taskwarrior"]["server"]["confirmation"],
     :extensions => node["taskwarrior"]["server"]["extensions"],
     :ip_log => node["taskwarrior"]["server"]["ip_log"],
-    :log => node["taskwarrior"]["server"]["log"],
+    :log => node["taskwarrior"]["server"]["log_file"],
     :queue_size=> node["taskwarrior"]["server"]["queue_size"],
     :request_limit=> node["taskwarrior"]["server"]["request_limit"],
     :root => node["taskwarrior"]["server"]["data_dir"],
