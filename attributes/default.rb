@@ -1,4 +1,4 @@
-default["taskwarrior"]["install_method"] = "package"
+
 
 default["taskwarrior"]["source"]["git_repository"] = "git://tasktools.org/task.git"
 default["taskwarrior"]["source"]["git_revision"] = "HEAD"
@@ -16,5 +16,3 @@ default["taskwarrior"]["server"]["log"] = "/var/log/taskd.log"
 default["taskwarrior"]["server"]["queue_size"] = 10
 default["taskwarrior"]["server"]["request_limit"] = 1048576
 default["taskwarrior"]["server"]["link"] = "localhost:6544"
-
-default["taskwarrior"]["server"]["initialized"] = false

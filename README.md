@@ -133,12 +133,6 @@ Attributes
     <td><tt>localhost:6544</tt></td>
   </tr>
   <tr>
-    <td><tt>["taskwarrior"]["server"]["initialized"]</tt></td>
-    <td>Boolean</td>
-    <td>Used by the recipe to run the database creation only at first run. *Do not override*</td>
-    <td><tt>false</tt></td>
-  </tr>
-  <tr>
     <td><tt>["taskwarrior"]["server"]["organization"]</tt></td>
     <td>String</td>
     <td>The name of your organization to generate the certificates.</td>

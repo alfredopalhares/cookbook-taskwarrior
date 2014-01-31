@@ -49,16 +49,13 @@ directory node["taskwarrior"]["server"]["data_dir"] do
   recursive true
 end
 
-if node["taskwarrior"]["server"]["initialized"]  == false then
-  bash "Initialize database" do
-    user "taskd"
-    cwd node["taskwarrior"]["server"]["home"]
-    code <<-EOH
-    taskd init --data #{node["taskwarrior"]["server"]["data_dir"]}
-    EOH
-  end
-
-  node.set["taskwarrior"]["server"]["initialized"] == true
+bash "Initialize database" do
+  user "taskd"
+  cwd node["taskwarrior"]["server"]["home"]
+  code <<-EOH
+  taskd init --data #{node["taskwarrior"]["server"]["data_dir"]}
+  EOH
+  not_if { ::File.exists?(node["taskwarrior"]["server"]["data_dir"]) }
 end
 
 include_recipe "taskwarrior::certs"
