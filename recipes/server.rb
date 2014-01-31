@@ -92,5 +92,5 @@ runit_service "taskd" do
     :user => "taskd",
     :data_dir => node["taskwarrior"]["server"]["data_dir"]
   })
-  default_logger true
+  log false
 end
