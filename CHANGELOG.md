@@ -1,6 +1,12 @@
 taskwarrior CHANGELOG
 =====================
 
+1.1.3
+-----
+- Fixed missing CA on taskd ([@masterkorp])
+- Do not generate certs for users that do not have the taskwarrior attributes
+- Allow taskwarrior clients above version 2 to connect
+
 1.1.2
 -----
 - Fixed runit initial starts because of the log ([@masterkorp][])
