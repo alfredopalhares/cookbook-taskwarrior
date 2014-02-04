@@ -115,60 +115,66 @@ users = data_bag("users")
 users.each() do |s|
   u = data_bag_item("users", s)
 
-  bash "Create Organization for the user" do
-    user "taskd"
-    cwd node["taskwarrior"]["server"]["home"]
-    code <<-EOH
-      taskd add org #{u["taskwarrior"]["organization"]} --data #{node["taskwarrior"]["server"]["data_dir"]}
-    EOH
-    not_if do ::File.directory?("#{node["taskwarrior"]["server"]["data_dir"]}/orgs/#{u["taskwarrior"]["organization"]}") end
-  end
+  if not u["taskwarrior"].nil?
+    bash "Create Organization for the user" do
+      user "taskd"
+      cwd node["taskwarrior"]["server"]["home"]
+      code <<-EOH
+        taskd add org #{u["taskwarrior"]["organization"]} --data #{node["taskwarrior"]["server"]["data_dir"]}
+      EOH
+      not_if do ::File.directory?("#{node["taskwarrior"]["server"]["data_dir"]}/orgs/#{u["taskwarrior"]["organization"]}") end
+    end
 
-  directory "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}" do
-    owner "taskd"
-    group "taskd"
-    notifies :run, "bash[Create user and key]", :immediately
-  end
+    directory "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}" do
+      owner "taskd"
+      group "taskd"
+      notifies :run, "bash[Create user and key]", :immediately
+    end
 
-  bash "Create user and key" do
-    user "taskd"
-    cwd "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}"
-    code <<-EOH
-      taskd add user #{u["taskwarrior"]["organization"]} #{u["id"]} \
-      --data #{node["taskwarrior"]["server"]["data_dir"]} \
-      2>&1 | tee #{u["id"]}.txt
-      certtool --generate-privkey --outfile #{u["id"]}.key.pem
-    EOH
-    action :nothing
-  end
+    bash "Create user and key" do
+      user "taskd"
+      cwd "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}"
+      code <<-EOH
+        taskd add user #{u["taskwarrior"]["organization"]} #{u["id"]} \
+        --data #{node["taskwarrior"]["server"]["data_dir"]} \
+        2>&1 | tee #{u["id"]}.txt
+        certtool --generate-privkey --outfile #{u["id"]}.key.pem
+      EOH
+      action :nothing
+    end
 
-  template "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}/client.info" do
-    source "client.info.erb"
-    owner "taskd"
-    group "taskd"
-    mode 00600
-    variables({
-      :organization => node["taskwarrior"]["server"]["organization"],
-      :cn => node["ipaddress"]
-    })
-    not_if {::File.exists?("#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}/#{u["id"]}.cert.pem")}
-    notifies :run, "bash[Generating User Cert]", :immediately
-  end
+    template "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}/client.info" do
+      source "client.info.erb"
+      owner "taskd"
+      group "taskd"
+      mode 00600
+      variables({
+        :organization => node["taskwarrior"]["server"]["organization"],
+        :cn => node["ipaddress"]
+      })
+      not_if {::File.exists?("#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}/#{u["id"]}.cert.pem")}
+      notifies :run, "bash[Generating User Cert]", :immediately
+    end
 
-  bash "Generating User Cert" do
-    user "taskd"
-    cwd "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}"
-    code <<-EOH
-      certtool --generate-certificate \
-      --load-privkey #{u["id"]}.key.pem \
-      --load-ca-certificate ../ca.cert.pem \
-      --load-ca-privkey ../ca.key.pem \
-      --template client.info \
-      --outfile #{u["id"]}.cert.pem
-      rm client.info
-      [ -s #{u["id"]}.cert.pem ]
-    EOH
-    action :nothing
+    bash "Generating User Cert" do
+      user "taskd"
+      cwd "#{node["taskwarrior"]["server"]["keys_dir"]}/#{u["id"]}"
+      code <<-EOH
+        certtool --generate-certificate \
+        --load-privkey #{u["id"]}.key.pem \
+        --load-ca-certificate ../ca.cert.pem \
+        --load-ca-privkey ../ca.key.pem \
+        --template client.info \
+        --outfile #{u["id"]}.cert.pem
+        rm client.info
+        [ -s #{u["id"]}.cert.pem ]
+      EOH
+      action :nothing
+    end
+  else
+    log "The #{u["id"]} does not have an Taskwarrior attribute so it will not be created" do
+      level :warn
+    end
   end
 end
 
