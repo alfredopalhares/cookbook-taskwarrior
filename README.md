@@ -144,6 +144,12 @@ Attributes
     <td>The name of your organization to generate the certificates.</td>
     <td><tt>Empty</tt></td>
   </tr>
+  <tr>
+    <td><tt>["taskwarrior"]["server"]["clients"]</tt></td>
+    <td>String</td>
+    <td>Regex string to allow client to connect to the server. Check the taskd log for more examples.</td>
+    <td><tt>^task [2-9]</tt></td>
+  </tr>
 </table>
 
 Usage

@@ -17,3 +17,4 @@ default["taskwarrior"]["server"]["log_file"] = "#{default["taskwarrior"]["server
 default["taskwarrior"]["server"]["queue_size"] = 10
 default["taskwarrior"]["server"]["request_limit"] = 1048576
 default["taskwarrior"]["server"]["link"] = "localhost:6544"
+default["taskwarrior"]["server"]["clients"] = "^task [2-9]"
