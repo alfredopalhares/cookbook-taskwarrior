@@ -89,6 +89,7 @@ template "#{node["taskwarrior"]["server"]["data_dir"]}/config" do
     :server_cert => "#{node["taskwarrior"]["server"]["keys_dir"]}/server.cert.pem",
     :server_crl => "#{node["taskwarrior"]["server"]["keys_dir"]}/server.crl.pem",
     :server_key => "#{node["taskwarrior"]["server"]["keys_dir"]}/server.key.pem",
+    :ca_cert => "#{node["taskwarrior"]["server"]["keys_dir"]}/ca.cert.pem",
     :client_allow => node["taskwarrior"]["server"]["clients"]
   })
   notifies :restart, "runit_service[taskd]", :delayed
